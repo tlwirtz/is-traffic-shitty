@@ -3,10 +3,18 @@
 }
 
 .App-header {
-  background-color: #222;
-  height: 150px;
+  height: 800px;
   padding: 20px;
   color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.App-header-text {
+  flex: auto;
+  justify-content: center;
+
 }
 
 .App-intro {

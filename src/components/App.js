@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TravelTime from './TravelTime'
+import TrafficHeader from './TrafficHeader'
 import '../css/App.css';
 
 /**
@@ -48,9 +49,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <h2>Is Traffic Shitty?</h2>
-        </div>
+        <TrafficHeader times={this.state.times || []}/>
         <ul className="Traffic-list">
           { this.renderTravelTimes() }
         </ul>

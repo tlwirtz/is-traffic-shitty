@@ -4,7 +4,7 @@ import '../css/TravelTime.css'
 
 const TravelTime = (props) => {
   const isGood = (avg, current) => { return avg >= current }
-  const isBad = (avg, current) => {return avg + 10 >= current}
+  const isBad = (avg, current) => { return ((avg + 10) <= current) }
   const isWarning = (avg, current) => { return (current > avg) && (current < avg + 10) }
   const { item } = props
   const travelTime = classNames({
