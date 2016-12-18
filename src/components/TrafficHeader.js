@@ -1,29 +1,24 @@
 import React, { Component } from 'react'
 import classNames from 'classnames'
 
-
 class TrafficHeader extends Component {
-  constructor() {
-    super()
-
-    this.isTrafficShitty = this.isTrafficShitty.bind(this)
-  }
-
-  isTrafficShitty() {
-    const goodTimes = this.props.times.filter(time => time.AverageTime >= time.CurrentTime)
-    const badTimes = this.props.times.filter(time => time.CurrentTime > time.AverageTime)
-    return goodTimes.length <= badTimes.length
-  }
-
   render() {
     const header= classNames({
       'App-header': true,
-      green: !this.isTrafficShitty(),
-      red: this.isTrafficShitty(),
+      green: !this.props.isShitty,
+      red: this.props.isShitty,
     })
     return (
       <div className={header}>
-        <h2 className="App-header-text">Is Traffic Shitty?</h2>
+        <div >
+          <h2 className="App-header-text">Is Traffic Shitty?</h2>
+          <br />
+          {
+            this.props.isShitty ?
+            <h2 className="App-header-text">Yes</h2> :
+            <h2 className="App-header-text">No</h2>
+          }
+        </div>
       </div>
     )
   }
