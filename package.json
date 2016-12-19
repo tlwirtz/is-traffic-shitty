@@ -17,5 +17,6 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "deploy": "npm run build && ns ./build --cmd 'list ./content -s'"
-  }
+  },
+  "homepage": "http://greysky.io/is-traffic-shitty/"
 }
