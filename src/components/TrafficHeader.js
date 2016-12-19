@@ -11,12 +11,10 @@ class TrafficHeader extends Component {
     return (
       <div className={header}>
         <div >
-          <h2 className="App-header-text">Is Traffic Shitty?</h2>
-          <br />
           {
             this.props.isShitty ?
-            <h2 className="App-header-text">Yes</h2> :
-            <h2 className="App-header-text">No</h2>
+            <h2 className="App-header-text">Yes, traffic is shitty.</h2> :
+            <h2 className="App-header-text">No, traffic is not shitty.</h2>
           }
         </div>
       </div>
