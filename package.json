@@ -6,13 +6,16 @@
     "react-scripts": "0.8.4"
   },
   "dependencies": {
+    "classnames": "^2.2.5",
     "react": "^15.4.1",
-    "react-dom": "^15.4.1"
+    "react-dom": "^15.4.1",
+    "superagent": "^3.3.1"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "npm run build && ns ./build --cmd 'list ./content -s'"
   }
 }
