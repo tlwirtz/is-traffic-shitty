@@ -1,6 +1,10 @@
 # IS TRAFFIC SHITTY?
 
-Just a fun client-side React App that will indicate whether traffic is shitty.
+Just a fun client-side React App that will indicate if traffic is shitty.
 Currently only works for Seattle area commutes. Might expand to other cities.
 
-Enhancements and feedback always welcome. Make a pull request or email me at: taylorw@greysky.io
+Thanks to the [@wsdot_traffic](https://twitter.com/wsdot_traffic) team for their easy to use APIs! 
+
+Enhancements and feedback always welcome. Make a pull request or contact me at:
+e-mail | taylorw@greysky.io
+twitter | [@wirtzt] (https://twitter.com/wirtzt)
