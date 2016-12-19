@@ -14,7 +14,6 @@ const TravelTime = (props) => {
     yellow: isWarning(item.AverageTime, item.CurrentTime)
   })
 
-  console.log('ITEM', item)
   return (
     <li className={travelTime}>
       <h2 className="travel-title">{item.Description} - {item.TravelTimeID}</h2>
