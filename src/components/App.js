@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import TravelTime from './TravelTime'
 import TrafficHeader from './TrafficHeader'
+import TrafficList from './TrafficList'
 import '../css/App.css';
+import '../css/TravelTimeFilter.css'
 
 /**
  * TODO -- create proxy server for this request
@@ -19,21 +20,14 @@ class App extends Component {
     super()
 
     this.getTravelTimes = this.getTravelTimes.bind(this)
-    this.renderTravelTimes = this.renderTravelTimes.bind(this)
     this.isTrafficShitty = this.isTrafficShitty.bind(this)
+    this.filterTravelTimes = this.filterTravelTimes.bind(this)
     this.state = { times: null }
   }
 
   componentWillMount() {
     this.getTravelTimes()
     this.isTrafficShitty()
-  }
-
-  renderTravelTimes() {
-    const { times } = this.state
-    return (
-      times ? times.map((item) => <TravelTime item={item} key={item.TravelTimeID}/>) : null
-    )
   }
 
   isTrafficShitty() {
@@ -44,9 +38,6 @@ class App extends Component {
   }
 
   getTravelTimes() {
-    /**
-     * Use traffic.js if we create a proxy server
-     */
     const travelIds = [1, 4, 9, 10, 17, 20, 21, 22, 26, 27, 32, 33, 35, 38, 43, 44, 51, 52, 53, 54, 59, 60, 73, 74, 79, 80, 83, 84, 89, 92, 93, 96, 286, 287, 294, 295]
     const filterTimes = (time) => travelIds.indexOf(time.TravelTimeID) > -1
 
@@ -58,13 +49,21 @@ class App extends Component {
     })
   }
 
+  filterTravelTimes(e) {
+    let times = this.state.times
+    const searchStr = e.target.value.toLowerCase()
+    times = times.filter(item => item.Description.toLowerCase().includes(searchStr))
+    this.setState({ filteredTimes: times })
+  }
+
   render() {
     return (
       <div className="App">
+        {/* TODO -- fontawesome icon should go here somewhere */}
+        <input className="travel-filter" type="text" onChange={this.filterTravelTimes} />
+
         <TrafficHeader isShitty={this.isTrafficShitty()}/>
-        <ul className="Traffic-list">
-          { this.renderTravelTimes() }
-        </ul>
+        <TrafficList times={this.state.filteredTimes || this.state.times} />
       </div>
     );
   }
