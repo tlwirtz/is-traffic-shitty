@@ -9,6 +9,7 @@
   "dependencies": {
     "classnames": "^2.2.5",
     "react": "^15.4.1",
+    "react-addons-css-transition-group": "^15.4.1",
     "react-dom": "^15.4.1",
     "superagent": "^3.3.1"
   },

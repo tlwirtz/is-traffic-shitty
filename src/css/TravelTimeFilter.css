@@ -1,0 +1,19 @@
+.travel-filter {
+  margin-left: 10px;
+  border: 0;
+  box-shadow: none;
+  border-bottom: solid thin white;
+  color: white;
+  display: flex;
+  position: absolute;
+  background: transparent;
+  height: 3rem;
+  width: 250px;
+  font-size: 3rem;
+  opacity: 0.9;
+  font-weight: 200;
+}
+
+.travel-filter:focus {
+  outline: 0;
+}

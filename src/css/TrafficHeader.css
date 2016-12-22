@@ -1,0 +1,23 @@
+.headerText-appear{
+  opacity: 0;
+}
+
+.headerText-appear.headerText-appear-active {
+  opacity: 1;
+  transition: opacity 750ms ease-in;
+}
+
+.headerText-enter {
+  opacity: 0;
+}
+.headerText.headerText-enter-active {
+  opacity: 1;
+  transition: opacity 750ms;
+}
+.headerText-leave {
+  opacity: 1;
+}
+.headerText-leave.headerText-leave-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
