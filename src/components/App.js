@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import TrafficHeader from './TrafficHeader'
 import TrafficList from './TrafficList'
+import TrafficFilter from './TrafficFilter'
 import '../css/App.css';
-import '../css/TravelTimeFilter.css'
 
 /**
  * TODO -- create proxy server for this request
@@ -59,10 +59,8 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        {/* TODO -- fontawesome icon should go here somewhere */}
-        <input className="travel-filter" type="text" onChange={this.filterTravelTimes} />
-
         <TrafficHeader isShitty={this.isTrafficShitty()}/>
+        <TrafficFilter filterTraffic={this.filterTravelTimes} />
         <TrafficList times={this.state.filteredTimes || this.state.times} />
       </div>
     );

@@ -2,9 +2,6 @@ import React from 'react'
 import TravelTime from './TravelTime'
 
 class TrafficList extends React.Component {
-  constructor() {
-    super()
-  }
   render() {
     const { times } = this.props
     return(
