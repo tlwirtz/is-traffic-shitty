@@ -25,28 +25,52 @@ class TravelTime extends Component {
   formatMsg(item) {
     const {AverageTime, CurrentTime} = item
     const d = this.diff(CurrentTime, AverageTime)
-    let msg
     const travelTime = classNames({
-        'red-text': this.status(AverageTime, CurrentTime) === 'bad',
-        'green-text': this.status(AverageTime, CurrentTime) === 'good',
-        'yellow-text': this.status(AverageTime, CurrentTime) === 'warning'
-      })
+      'red-text': this.status(AverageTime, CurrentTime) === 'bad',
+      'green-text': this.status(AverageTime, CurrentTime) === 'good',
+      'yellow-text': this.status(AverageTime, CurrentTime) === 'warning'
+    })
+    let msg
 
-    if (d === 0) msg = `average.`
-    if (d > 0) msg = `${Math.abs(d)} ${ d === 1 ? 'minute' : 'minutes'} above average.`
-    if (d < 0) msg = `${Math.abs(d)} ${ d === -1 ? 'minute' : 'minutes'} below average.`
-    return <span className={travelTime}>{msg}</span>
+    if (d === 0) {
+      msg = `This is average.`
+    }
+
+    //TODO -- should there be a function to construct these messages?
+    if (d > 0) {
+      msg = (
+        <div>
+          This is {Math.abs(d)} {d === 1 ? 'minute' : 'minutes'}
+          <span className={travelTime}> below average</span>.
+        </div>
+      )
+    }
+    if (d < 0) {
+      msg = (
+        <div>
+          This is {Math.abs(d)} {d === 1 ? 'minute' : 'minutes'}
+          <span className={travelTime}> above average</span>.
+        </div>
+      )
+    }
+    return msg
   }
 
   render() {
     const { item } = this.props
-    const travelTime = classNames({
-      TravelTime: true
-    })
-    const msg = this.formatMsg(item, item.AverageTime, item.CurrentTime)
+    const travelTime = classNames({ TravelTime: true })
+    const msg = this.formatMsg(item)
+    const travelStatus = classNames({
+        'red-text': this.status(item.AverageTime, item.CurrentTime) === 'bad',
+        'green-text': this.status(item.AverageTime, item.CurrentTime) === 'good',
+        'yellow-text': this.status(item.AverageTime, item.CurrentTime) === 'warning'
+      })
     return (
       <li className={travelTime}>
-        <h2>{item.Description} is {msg}</h2>
+        <h3>Traffic from {item.Description} is
+          <span className={travelStatus  }>{item.CurrentTime}</span> minutes.
+        </h3>
+        <h3>{msg}</h3>
       </li>
     )
   }
