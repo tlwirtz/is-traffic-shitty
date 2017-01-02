@@ -60,7 +60,7 @@ class App extends Component {
     return (
       <div className="App">
         <TrafficHeader isShitty={this.isTrafficShitty()}/>
-        <TrafficFilter filterTraffic={this.filterTravelTimes} />
+        {/* <TrafficFilter filterTraffic={this.filterTravelTimes} /> */}
         <TrafficList times={this.state.filteredTimes || this.state.times} />
       </div>
     );
