@@ -1,5 +1,5 @@
 .App {
-  text-align: center;
+  text-align: left;
 }
 
 .App-header {
@@ -32,6 +32,8 @@
 .Traffic-list {
   padding-left: 0;
 }
+
+
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

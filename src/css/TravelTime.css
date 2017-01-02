@@ -1,7 +1,9 @@
 .TravelTime {
   list-style: none;
-  margin: 0;
-  padding: 0;
+  margin: 10px;
+  padding: 10px;
+  /*border: thin solid #333;*/
+  border-radius: 3px;
 }
 
 .red {
@@ -17,4 +19,16 @@
 .yellow {
   background-color: rgb(233, 190, 78);
   border: thin solid rgb(210, 159, 24);
+}
+
+.red-text {
+  color: rgb(251, 95, 95);
+}
+
+.green-text {
+  color: rgb(118, 235, 48);
+}
+
+.yellow-text {
+  color: rgb(233, 190, 78);
 }
