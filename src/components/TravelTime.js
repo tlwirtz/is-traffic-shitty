@@ -16,7 +16,7 @@ class TravelTime extends Component {
   }
 
   status(avg, current) {
-    const d = this.diff(current, avg)
+    const d = this.diff(avg, current)
     if (d > 10)  return 'bad'
     if (d > 0 )   return 'warning'
     if (d <= 0 )  return 'good'
@@ -68,7 +68,7 @@ class TravelTime extends Component {
     return (
       <li className={travelTime}>
         <h3>Traffic from {item.Description} is
-          <span className={travelStatus  }>{item.CurrentTime}</span> minutes.
+          <span className={travelStatus  }> {item.CurrentTime} minutes</span>.
         </h3>
         <h3>{msg}</h3>
       </li>
