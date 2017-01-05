@@ -16,7 +16,7 @@ class TravelTime extends Component {
   }
 
   status(avg, current) {
-    const d = this.diff(avg, current)
+    const d = this.diff(current, avg)
     if (d > 10)  return 'bad'
     if (d > 0 )   return 'warning'
     if (d <= 0 )  return 'good'
@@ -37,7 +37,7 @@ class TravelTime extends Component {
     }
 
     //TODO -- should there be a function to construct these messages?
-    if (d > 0) {
+    if (d < 0) {
       msg = (
         <div>
           This is {Math.abs(d)} {d === 1 ? 'minute' : 'minutes'}
@@ -45,7 +45,7 @@ class TravelTime extends Component {
         </div>
       )
     }
-    if (d < 0) {
+    if (d > 0) {
       msg = (
         <div>
           This is {Math.abs(d)} {d === 1 ? 'minute' : 'minutes'}
