@@ -23,55 +23,47 @@ class TravelTime extends Component {
   }
 
   formatMsg(item) {
-    const {AverageTime, CurrentTime} = item
-    const d = this.diff(CurrentTime, AverageTime)
-    const travelTime = classNames({
-      'red-text': this.status(AverageTime, CurrentTime) === 'bad',
-      'green-text': this.status(AverageTime, CurrentTime) === 'good',
-      'yellow-text': this.status(AverageTime, CurrentTime) === 'warning'
-    })
-    let msg
-
-    if (d === 0) {
-      msg = `This is average.`
-    }
-
-    //TODO -- should there be a function to construct these messages?
-    if (d < 0) {
-      msg = (
-        <div>
-          This is {Math.abs(d)} {d === 1 ? 'minute' : 'minutes'}
-          <span className={travelTime}> below average</span>.
-        </div>
-      )
-    }
-    if (d > 0) {
-      msg = (
-        <div>
-          This is {Math.abs(d)} {d === 1 ? 'minute' : 'minutes'}
-          <span className={travelTime}> above average</span>.
-        </div>
-      )
-    }
-    return msg
+    const d = this.diff(item.CurrentTime, item.AverageTime)
+    if (d >= 0) return `+ ${Math.abs(d)} mins`;
+    if (d < 0) return `- ${Math.abs(d)} mins`;
   }
 
   render() {
     const { item } = this.props
-    const travelTime = classNames({ TravelTime: true })
     const msg = this.formatMsg(item)
     const travelStatus = classNames({
-        'red-text': this.status(item.AverageTime, item.CurrentTime) === 'bad',
-        'green-text': this.status(item.AverageTime, item.CurrentTime) === 'good',
-        'yellow-text': this.status(item.AverageTime, item.CurrentTime) === 'warning'
+        'red': this.status(item.AverageTime, item.CurrentTime) === 'bad',
+        'green': this.status(item.AverageTime, item.CurrentTime) === 'good',
+        'yellow': this.status(item.AverageTime, item.CurrentTime) === 'warning',
+        'small': true
       })
+
+    const diffStatus = classNames({
+      'red': this.status(item.AverageTime, item.CurrentTime) === 'bad',
+      'green': this.status(item.AverageTime, item.CurrentTime) === 'good',
+      'yellow': this.status(item.AverageTime, item.CurrentTime) === 'warning',
+      'white-text': true,
+      'difference-item': true
+    })
     return (
-      <li className={travelTime}>
-        <h3>Traffic from {item.Description} is
-          <span className={travelStatus  }> {item.CurrentTime} minutes</span>.
-        </h3>
-        <h3>{msg}</h3>
-      </li>
+        <li className="travel-time">
+          <div className="travel-flex-container">
+            <div className={travelStatus}>
+              {/*  this holds our color indicator */}
+            </div>
+            <div className="flex-item-border">
+                <h3 className='travel-header'>{item.Description}</h3>
+            </div>
+            <div className="flex-item-border">
+                <p className="travel-text">Average: {item.AverageTime} mins</p>
+                <p className="travel-text">Current: {item.CurrentTime} mins</p>
+            </div>
+            <div className={diffStatus}>
+                <p>{this.formatMsg(item)}</p>
+            </div>
+          </div>
+        </li>
+
     )
   }
 }
