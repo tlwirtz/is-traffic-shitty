@@ -30,7 +30,6 @@ class TravelTime extends Component {
 
   render() {
     const { item } = this.props
-    const msg = this.formatMsg(item)
     const travelStatus = classNames({
         'red': this.status(item.AverageTime, item.CurrentTime) === 'bad',
         'green': this.status(item.AverageTime, item.CurrentTime) === 'good',
