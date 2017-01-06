@@ -1,34 +1,155 @@
-.TravelTime {
+.travel-time {
   list-style: none;
-  margin: 10px;
-  padding: 10px;
-  /*border: thin solid #333;*/
+  margin: 1.5em;
   border-radius: 3px;
+  box-shadow: 3px 3px 0.5em rgb(210, 210, 210);
+  color: rgb(74, 74, 74);
+  font-weight: lighter;
+  max-width: 100%;
+}
+
+.travel-flex-container {
+  display: flex;
+  justify-content: center;
+}
+
+.flex-item-border {
+  /*border-right: thin solid rgb(213, 213, 213);*/
+  flex-grow: 1;
+  padding: 10px;
+  text-align: center;
+  align-self: center;
+}
+
+.flex-item-border:last-child {
+  border-right: 0;
+}
+
+.difference-item {
+  padding: 1.0em;
+  text-align: center;
+  border-top-right-radius: 3px;
+  border-bottom-right-radius: 3px;
+}
+
+.small {
+  min-width: 5px;
+  max-width: 5px;
+  min-height: 10px;
+  padding: 0;
+  padding-left: 1px;
+  border-top-left-radius: 3px;
+  border-bottom-left-radius: 3px;
+  border: 0;
+}
+
+.travel-header {
+  font-size: 1.50em;
+  font-weight: 100;
+  margin: 0.75em;
+}
+
+.travel-text {
+  font-size: 1.0em;
+  margin: 0.5em;
+}
+
+.red-border {
+  border: thin solid rgb(247, 48, 48);
 }
 
 .red {
   background-color: rgb(251, 95, 95);
-  border: thin solid rgb(247, 48, 48);
-}
-
-.green {
-  background-color: rgb(118, 235, 48);
-  border: thin solid rgb(112, 193, 63);
-}
-
-.yellow {
-  background-color: rgb(233, 190, 78);
-  border: thin solid rgb(210, 159, 24);
 }
 
 .red-text {
   color: rgb(251, 95, 95);
 }
 
+.green {
+  background-color: rgb(118, 235, 48);
+}
+
 .green-text {
   color: rgb(118, 235, 48);
 }
 
+.green-border {
+  border: thin solid rgb(112, 193, 63);
+}
+
+.yellow {
+  background-color: rgb(233, 190, 78);
+}
+
+.yellow-border {
+  border: thin solid rgb(210, 159, 24);
+}
+
 .yellow-text {
   color: rgb(233, 190, 78);
+}
+
+.white-text {
+  color: rgb(255, 255, 255);
+}
+
+/* Custom, iPhone Retina */
+@media only screen and (max-width : 320px) {
+  .test-travel-time {
+    max-width: 100%;
+  }
+
+  .flex-item-border {
+    border-right: 0;
+  }
+
+  .travel-flex-container {
+    flex-flow: column;
+  }
+
+  .small {
+    min-width: 100%;
+    max-width: 100%;
+  }
+}
+
+/* Extra Small Devices, Phones */
+@media only screen and (max-width : 480px) {
+  .test-travel-time{
+    max-width: 100%;
+  }
+
+  .flex-item-border {
+    border-right: 0;
+  }
+
+  .travel-flex-container {
+    flex-flow: column;
+  }
+
+  .small {
+    min-width: 100%;
+    max-width: 100%
+  }
+}
+
+/* Small Devices, Tablets */
+@media only screen and (max-width : 768px) {
+  .test-travel-time{
+    max-width: 80%;
+  }
+
+  .flex-item-border {
+    border-right: 0;
+  }
+
+  .travel-flex-container {
+    flex-flow: column;
+  }
+
+  .small {
+    min-width: 100%;
+    max-width: 100%;
+  }
 }
