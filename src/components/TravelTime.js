@@ -30,17 +30,21 @@ class TravelTime extends Component {
 
   render() {
     const { item } = this.props
+    const currStatus = this.status(item.AverageTime, item.CurrentTime)
+    const isRed = currStatus === 'bad'
+    const isGreen = currStatus === 'good'
+    const isYellow = currStatus === 'warning'
     const travelStatus = classNames({
-        'red': this.status(item.AverageTime, item.CurrentTime) === 'bad',
-        'green': this.status(item.AverageTime, item.CurrentTime) === 'good',
-        'yellow': this.status(item.AverageTime, item.CurrentTime) === 'warning',
+        'red': isRed,
+        'green': isGreen,
+        'yellow': isYellow,
         'small': true
       })
 
     const diffStatus = classNames({
-      'red': this.status(item.AverageTime, item.CurrentTime) === 'bad',
-      'green': this.status(item.AverageTime, item.CurrentTime) === 'good',
-      'yellow': this.status(item.AverageTime, item.CurrentTime) === 'warning',
+      'red': isRed,
+      'green': isGreen,
+      'yellow': isYellow,
       'white-text': true,
       'difference-item': true
     })
