@@ -22,7 +22,7 @@ class App extends Component {
     this.getTravelTimes = this.getTravelTimes.bind(this)
     this.isTrafficShitty = this.isTrafficShitty.bind(this)
     this.filterTravelTimes = this.filterTravelTimes.bind(this)
-    this.state = { times: null }
+    this.state = { times: [] }
   }
 
   componentWillMount() {
@@ -50,6 +50,7 @@ class App extends Component {
   }
 
   filterTravelTimes(e) {
+    e.preventDefault();
     let times = this.state.times
     const searchStr = e.target.value.toLowerCase()
     times = times.filter(item => item.Description.toLowerCase().includes(searchStr))
