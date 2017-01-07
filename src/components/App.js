@@ -16,25 +16,28 @@ const WSDOT_URL = 'https://wsdot.com/Traffic/api/TravelTimes/TravelTimesREST.svc
 const ACCESS_CODE = process.env.WSDOT_ACCESS_CODE || '10a60c16-25f1-49c3-bcbe-b83f01e77f7e'
 
 class App extends Component {
-  constructor() {
+  constructor(props) {
     super(props)
 
     this.getTravelTimes = this.getTravelTimes.bind(this)
     this.isTrafficShitty = this.isTrafficShitty.bind(this)
     this.filterTravelTimes = this.filterTravelTimes.bind(this)
-    this.state = { times: [] }
+    this.state = {
+      times: [],
+      filterTimes: [],
+      isShitty: null
+      }
   }
 
   componentWillMount() {
     this.getTravelTimes()
-    this.isTrafficShitty()
   }
 
   isTrafficShitty() {
-    if (!this.state.times) return false
+    if (!this.state.times) return this.setSate({isShitty: null})
     const goodTimes = this.state.times.filter(time => time.AverageTime >= time.CurrentTime)
     const badTimes = this.state.times.filter(time => time.CurrentTime > time.AverageTime)
-    return goodTimes.length <= badTimes.length
+    return this.setState({ isShitty: goodTimes.length <= badTimes.length})
   }
 
   getTravelTimes() {
@@ -45,7 +48,8 @@ class App extends Component {
     .use(jsonp) // must use jsonp unless we make the call from a proxy server
     .end((err, res) => {
       if (err) return null
-      return this.setState({ times: res.body.filter(filterTimes) })
+      this.setState({ times: res.body.filter(filterTimes) })
+      this.isTrafficShitty();
     })
   }
 
@@ -55,12 +59,13 @@ class App extends Component {
     const searchStr = e.target.value.toLowerCase()
     times = times.filter(item => item.Description.toLowerCase().includes(searchStr))
     this.setState({ filteredTimes: times })
+    this.isTrafficShitty()
   }
 
   render() {
     return (
       <div className="App">
-        <TrafficHeader isShitty={this.isTrafficShitty()}/>
+        <TrafficHeader isShitty={this.state.isShitty}/>
         <TrafficFilter filterTraffic={this.filterTravelTimes} />
         <TrafficList times={this.state.filteredTimes || this.state.times} />
       </div>
