@@ -16,8 +16,14 @@
 .App-header-text {
   font-weight: 100;
   font-size: 6rem;
+  line-height: 5.75rem;
   flex: auto;
   justify-content: center;
+  text-align: center;
+}
+
+.full-width {
+  flex-basis: 100%
 }
 
 .App-intro {
@@ -31,9 +37,14 @@
 
 .Traffic-list {
   padding-left: 0;
+  height: 100vh;
 }
 
-
+.down-angle {
+  font-weight: lighter;
+  text-align: center;
+  line-height: 1rem;
+}
 
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }

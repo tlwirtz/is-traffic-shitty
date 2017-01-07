@@ -4,15 +4,18 @@ import classNames from 'classnames'
 import '../css/TrafficHeader.css'
 
 class TrafficHeader extends Component {
+
   render() {
     const header= classNames({
       'App-header': true,
       green: !this.props.isShitty,
       red: this.props.isShitty,
     })
+
     return (
+      <div>
       <div className={header}>
-        <div >
+        <div className="full-width">
           <ReactCSSTransitionGroup
             transitionName="headerText"
             transitionAppear={true}
@@ -27,7 +30,18 @@ class TrafficHeader extends Component {
             }
           </ReactCSSTransitionGroup>
         </div>
+          <div>
+              <span>
+                <h2>
+                  <i onClick={() => {this.trafficFilter.scrollIntoView({behavior: 'smooth'})  }} className="pulse fa fa-angle-down App-header-text down-angle"></i>
+                </h2>
+              </span>
+          </div>
       </div>
+      <div ref={(div) => {this.trafficFilter = div}}>
+        {/* this is so we can scroll */}  
+      </div>
+    </div>
     )
   }
 }
