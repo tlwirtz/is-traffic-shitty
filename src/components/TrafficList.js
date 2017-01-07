@@ -3,7 +3,7 @@ import TravelTime from './TravelTime'
 import '../css/TravelTime.css'
 class TrafficList extends React.Component {
   constructor() {
-    super()
+    super(props)
     this.renderList = this.renderList.bind(this)
   }
 

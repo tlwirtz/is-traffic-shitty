@@ -4,7 +4,7 @@ import '../css/TravelTime.css'
 
 class TravelTime extends Component {
   constructor() {
-    super()
+    super(props)
 
     this.formatMsg = this.formatMsg.bind(this)
     this.status = this.status.bind(this)

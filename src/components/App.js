@@ -17,7 +17,7 @@ const ACCESS_CODE = process.env.WSDOT_ACCESS_CODE || '10a60c16-25f1-49c3-bcbe-b8
 
 class App extends Component {
   constructor() {
-    super()
+    super(props)
 
     this.getTravelTimes = this.getTravelTimes.bind(this)
     this.isTrafficShitty = this.isTrafficShitty.bind(this)
