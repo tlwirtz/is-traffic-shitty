@@ -4,7 +4,7 @@ import classNames from 'classnames'
 import '../css/TrafficHeader.css'
 
 class TrafficHeader extends Component {
-
+  
   render() {
     const header= classNames({
       'App-header': true,
@@ -39,7 +39,7 @@ class TrafficHeader extends Component {
           </div>
       </div>
       <div ref={(div) => {this.trafficFilter = div}}>
-        {/* this is so we can scroll */}  
+        {/* this is so we can scroll */}
       </div>
     </div>
     )

@@ -3,7 +3,7 @@ import classNames from 'classnames'
 import '../css/TravelTime.css'
 
 class TravelTime extends Component {
-  constructor() {
+  constructor(props) {
     super(props)
 
     this.formatMsg = this.formatMsg.bind(this)
