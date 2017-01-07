@@ -21,3 +21,46 @@
   opacity: 0;
   transition: opacity 300ms;
 }
+
+
+.downAngle-appear{
+  opacity: 0;
+}
+
+.downAngle-appear.downAngle-appear-active {
+  opacity: 1;
+  transition: opacity 750ms ease-in;
+}
+
+.downAngle-enter {
+  opacity: 0;
+}
+.downAngle.downAngle-enter-active {
+  opacity: 1;
+  transition: opacity 750ms;
+}
+.downAngle-leave {
+  opacity: 1;
+}
+.downAngle-leave.downAngle-leave-active {
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.pulse {
+  animation: pulse 4s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    color: rgba(255, 255, 255, 0.6);
+  }
+
+  50% {
+    color: rgba(255, 255, 255, 1);
+  }
+
+  100% {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
