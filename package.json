@@ -23,5 +23,5 @@
     "deploy-gh": "npm run build&&gh-pages -d build",
     "gh-pages": "gh-pages -d build"
   },
-  "homepage": "http://greysky.io/is-traffic-shitty/"
+  "homepage": "http://greysky.io/is-traffic-shitty"
 }
