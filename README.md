@@ -1,4 +1,4 @@
-# [IS TRAFFIC SHITTY?] (http://greysky.io/is-traffic-shitty)
+# [IS TRAFFIC SHITTY?] (https://istrafficshitty.com)
 
 Just a fun client-side React App that will indicate if traffic is shitty.
 Only works for Seattle area commutes. Might expand to other cities.
