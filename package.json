@@ -21,6 +21,7 @@
     "eject": "react-scripts eject",
     "deploy-now": "npm run build && ns ./build --cmd 'list ./content -s'",
     "deploy-gh": "npm run build&&gh-pages -d build",
-    "gh-pages": "gh-pages -d build"
+    "gh-pages": "gh-pages -d build",
+    "deploy-fb": "npm run build && firebase deploy"
   }
 }
