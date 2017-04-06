@@ -33,11 +33,19 @@ class App extends Component {
     this.getTravelTimes();
   }
 
+  diff(key) {
+    return key.CurrentTime - key.AverageTime;
+  }
+
+  sum(a, b) {
+    return a + b;
+  }
+
   isTrafficShitty() {
-    if (!this.state.times) return this.setSate({ isShitty: null });
-    const goodTimes = this.state.times.filter(time => time.AverageTime >= time.CurrentTime);
-    const badTimes = this.state.times.filter(time => time.CurrentTime > time.AverageTime);
-    return this.setState({ isShitty: goodTimes.length <= badTimes.length });
+    const { times } = this.state;
+    if (!times) return this.setSate({ isShitty: null });
+    const avgDiff = times.map(this.diff).reduce(this.sum) / times.length;
+    return this.setState({ isShitty: avgDiff >= 10 });
   }
 
   getTravelTimes() {
@@ -55,7 +63,7 @@ class App extends Component {
 
   filterTravelTimes(e) {
     e.preventDefault();
-    let times = this.state.times;
+    let { times } = this.state;
     const searchStr = e.target.value.toLowerCase();
     times = times.filter(item => item.Description.toLowerCase().includes(searchStr));
     this.setState({ filteredTimes: times });
