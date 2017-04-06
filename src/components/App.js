@@ -41,9 +41,8 @@ class App extends Component {
     return a + b;
   }
 
-  isTrafficShitty() {
-    const { times } = this.state;
-    if (!times) return this.setSate({ isShitty: null });
+  isTrafficShitty(times) {
+    if (!times.length) return this.setState({ isShitty: null });
     const avgDiff = times.map(this.diff).reduce(this.sum) / times.length;
     return this.setState({ isShitty: avgDiff >= 10 });
   }
@@ -57,7 +56,7 @@ class App extends Component {
       .end((err, res) => {
         if (err) return null;
         this.setState({ times: res.body.filter(filterTimes) });
-        this.isTrafficShitty();
+        this.isTrafficShitty(res.body.filter(filterTimes));
       });
   }
 
@@ -67,7 +66,7 @@ class App extends Component {
     const searchStr = e.target.value.toLowerCase();
     times = times.filter(item => item.Description.toLowerCase().includes(searchStr));
     this.setState({ filteredTimes: times });
-    this.isTrafficShitty();
+    this.isTrafficShitty(times);
   }
 
   render() {
