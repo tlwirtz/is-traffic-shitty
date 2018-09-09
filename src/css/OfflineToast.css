@@ -1,0 +1,17 @@
+.offlineToast {
+  background-color: indianred;
+  width: 75%;
+  z-index: 9999;
+  position: fixed;
+  text-align: center;
+  margin: 10px auto;
+  padding: 1.5rem;
+  color: white;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.offlineToast-container {
+  display: flex;
+  justify-content: center;
+}
