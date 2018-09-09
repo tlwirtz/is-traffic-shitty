@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import TrafficHeader from './TrafficHeader';
 import TrafficList from './TrafficList';
 import TrafficFilter from './TrafficFilter';
+import OfflineToast from './OfflineToast';
 import getTimesFromServer from '../services/traffic';
 import travelIds from '../services/travel-ids';
 import '../css/App.css';
@@ -13,15 +14,31 @@ class App extends Component {
     this.getTravelTimes = this.getTravelTimes.bind(this);
     this.isTrafficShitty = this.isTrafficShitty.bind(this);
     this.filterTravelTimes = this.filterTravelTimes.bind(this);
+    this.setOnlineStatus = this.setOnlineStatus.bind(this);
     this.state = {
       times: [],
       filterTimes: [],
-      isShitty: null
+      isShitty: null,
+      isOnline: navigator.onLine,
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     this.getTravelTimes();
+
+    window.addEventListener('online', this.setOnlineStatus);
+    window.addEventListener('offline', this.setOnlineStatus);
+  }
+
+  setOnlineStatus(event) {
+    const { isOnline } = this.state;
+    this.setState({ isOnline: navigator.onLine });
+
+    if (!isOnline && navigator.onLine) {
+      console.log('we are back online!');
+      // we are back; refresh;
+      this.getTravelTimes();
+    }
   }
 
   diff(key) {
@@ -39,7 +56,7 @@ class App extends Component {
   }
 
   async getTravelTimes() {
-    const filterTimes = (time) => travelIds.indexOf(time.TravelTimeID) > -1;
+    const filterTimes = time => travelIds.indexOf(time.TravelTimeID) > -1;
 
     try {
       const serverTimes = await getTimesFromServer();
@@ -47,7 +64,7 @@ class App extends Component {
       this.isTrafficShitty(serverTimes.filter(filterTimes));
     } catch (err) {
       console.log('err', err);
-      // render error? 
+      // render error?
       // try again?
     }
   }
@@ -64,6 +81,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        {this.state.isOnline ? null : <OfflineToast />}
         <TrafficHeader isShitty={this.state.isShitty} />
         <TrafficFilter filterTraffic={this.filterTravelTimes} />
         <TrafficList times={this.state.filteredTimes || this.state.times} />
