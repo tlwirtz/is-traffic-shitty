@@ -4,15 +4,16 @@
   "private": true,
   "devDependencies": {
     "gh-pages": "^0.12.0",
-    "react-scripts": "0.8.4"
+    "react-scripts": "2.1.1"
   },
   "dependencies": {
-    "classnames": "^2.2.5",
-    "react": "^15.4.1",
+    "classnames": "^2.2.6",
+    "react": "^16.6.1",
     "react-addons-css-transition-group": "^15.4.1",
-    "react-dom": "^15.4.1",
-    "superagent": "^3.3.1",
-    "superagent-jsonp": "^0.1.1"
+    "react-dom": "^16.6.1",
+    "react-transition-group": "^2.5.0",
+    "superagent": "^3.8.3",
+    "superagent-jsonp": "^0.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -23,5 +24,11 @@
     "deploy-gh": "npm run build&&gh-pages -d build",
     "gh-pages": "gh-pages -d build",
     "deploy-fb": "firebase use is-traffic-shitty && npm run build && firebase deploy"
-  }
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
