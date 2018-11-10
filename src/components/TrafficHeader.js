@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import CSSTransitionGroup from 'react-transition-group/CSSTransition';
 import classNames from 'classnames';
 import '../css/TrafficHeader.css';
 
 class TrafficHeader extends Component {
-
   render() {
     const header = classNames({
       'App-header': true,
@@ -16,29 +15,42 @@ class TrafficHeader extends Component {
       <div>
         <div className={header}>
           <div className="full-width">
-            <ReactCSSTransitionGroup
+            <CSSTransitionGroup
               transitionName="headerText"
               transitionAppear={true}
               transitionAppearTimeout={750}
               transitionEnterTimeout={750}
               transitionLeaveTimeout={300}
             >
-              {
-                this.props.isShitty ?
-                  <h2 key={'shitty'} className="App-header-text">Yes, traffic is shitty.</h2> :
-                  <h2 key={'not-shitty'} className="App-header-text">No, traffic is not shitty.</h2>
-              }
-            </ReactCSSTransitionGroup>
+              {this.props.isShitty ? (
+                <h2 key={'shitty'} className="App-header-text">
+                  Yes, traffic is shitty.
+                </h2>
+              ) : (
+                <h2 key={'not-shitty'} className="App-header-text">
+                  No, traffic is not shitty.
+                </h2>
+              )}
+            </CSSTransitionGroup>
           </div>
           <div>
             <span>
               <h2>
-                <i onClick={() => { this.trafficFilter.scrollIntoView({ behavior: 'smooth' }); }} className="pulse fa fa-angle-down App-header-text down-angle"></i>
+                <i
+                  onClick={() => {
+                    this.trafficFilter.scrollIntoView({ behavior: 'smooth' });
+                  }}
+                  className="pulse fa fa-angle-down App-header-text down-angle"
+                />
               </h2>
             </span>
           </div>
         </div>
-        <div ref={(div) => { this.trafficFilter = div; }}>
+        <div
+          ref={div => {
+            this.trafficFilter = div;
+          }}
+        >
           {/* this is so we can scroll */}
         </div>
       </div>
