@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import TrafficHeader from './TrafficHeader';
 import TrafficList from './TrafficList';
 import TrafficFilter from './TrafficFilter';
@@ -7,87 +7,77 @@ import getTimesFromServer from '../services/traffic';
 import travelIds from '../services/travel-ids';
 import '../css/App.css';
 
-class App extends Component {
-  constructor(props) {
-    super(props);
+function mainApp() {
+    useEffect(() => {
+        window.addEventListener('online', setOnlineStatus);
+        window.addEventListener('offline', setOnlineStatus);
+    }, []);
 
-    this.getTravelTimes = this.getTravelTimes.bind(this);
-    this.isTrafficShitty = this.isTrafficShitty.bind(this);
-    this.filterTravelTimes = this.filterTravelTimes.bind(this);
-    this.setOnlineStatus = this.setOnlineStatus.bind(this);
-    this.state = {
-      times: [],
-      filterTimes: [],
-      isShitty: null,
-      isOnline: navigator.onLine,
+    useEffect(() => {
+        getTravelTimes();
+    }, []);
+
+    const [isOnline, setOnline] = useState(navigator.onLine);
+    const [isShitty, setIsShitty] = useState(null);
+    const [filteredTimes, setFilteredTimes] = useState([]);
+    const [times, setTimes] = useState([]);
+
+    const diff = key => {
+        return key.CurrentTime - key.AverageTime;
     };
-  }
 
-  componentDidMount() {
-    this.getTravelTimes();
+    const sum = (a, b) => {
+        return a + b;
+    };
 
-    window.addEventListener('online', this.setOnlineStatus);
-    window.addEventListener('offline', this.setOnlineStatus);
-  }
+    const setOnlineStatus = event => {
+        setOnline(navigator.onLine);
 
-  setOnlineStatus(event) {
-    const { isOnline } = this.state;
-    this.setState({ isOnline: navigator.onLine });
+        if (!isOnline && navigator.onLine) {
+            console.log('we are back online!');
+            // we are back; refresh;
+            getTravelTimes();
+        }
+    };
 
-    if (!isOnline && navigator.onLine) {
-      console.log('we are back online!');
-      // we are back; refresh;
-      this.getTravelTimes();
+    const isTrafficShitty = times => {
+        if (!times.length) return setIsShitty(null);
+        const avgDiff = times.map(diff).reduce(sum) / times.length;
+        return setIsShitty(avgDiff >= 10);
+    };
+
+    async function getTravelTimes() {
+        const filterTimes = time => travelIds.indexOf(time.TravelTimeID) > -1;
+
+        try {
+            const serverTimes = await getTimesFromServer();
+            setTimes(serverTimes.filter(filterTimes));
+            isTrafficShitty(serverTimes.filter(filterTimes));
+        } catch (err) {
+            console.log('err', err);
+            // render error?
+            // try again?
+        }
     }
-  }
 
-  diff(key) {
-    return key.CurrentTime - key.AverageTime;
-  }
+    const filterTravelTimes = e => {
+        e.preventDefault();
+        const searchStr = e.target.value.toLowerCase();
+        const filteredTimes = times.filter(item =>
+            item.Description.toLowerCase().includes(searchStr)
+        );
+        setFilteredTimes(filteredTimes);
+        isTrafficShitty(filteredTimes);
+    };
 
-  sum(a, b) {
-    return a + b;
-  }
-
-  isTrafficShitty(times) {
-    if (!times.length) return this.setState({ isShitty: null });
-    const avgDiff = times.map(this.diff).reduce(this.sum) / times.length;
-    return this.setState({ isShitty: avgDiff >= 10 });
-  }
-
-  async getTravelTimes() {
-    const filterTimes = time => travelIds.indexOf(time.TravelTimeID) > -1;
-
-    try {
-      const serverTimes = await getTimesFromServer();
-      this.setState({ times: serverTimes.filter(filterTimes) });
-      this.isTrafficShitty(serverTimes.filter(filterTimes));
-    } catch (err) {
-      console.log('err', err);
-      // render error?
-      // try again?
-    }
-  }
-
-  filterTravelTimes(e) {
-    e.preventDefault();
-    let { times } = this.state;
-    const searchStr = e.target.value.toLowerCase();
-    times = times.filter(item => item.Description.toLowerCase().includes(searchStr));
-    this.setState({ filteredTimes: times });
-    this.isTrafficShitty(times);
-  }
-
-  render() {
     return (
-      <div className="App">
-        {this.state.isOnline ? null : <OfflineToast />}
-        <TrafficHeader isShitty={this.state.isShitty} />
-        <TrafficFilter filterTraffic={this.filterTravelTimes} />
-        <TrafficList times={this.state.filteredTimes || this.state.times} />
-      </div>
+        <div className="App">
+            {isOnline ? null : <OfflineToast />}
+            <TrafficHeader isShitty={isShitty} />
+            <TrafficFilter filterTraffic={filterTravelTimes} />
+            <TrafficList times={filteredTimes || times} />
+        </div>
     );
-  }
 }
 
-export default App;
+export default mainApp;
