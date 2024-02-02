@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import TrafficHeader from './TrafficHeader';
 import TrafficList from './TrafficList';
 import TrafficFilter from './TrafficFilter';
@@ -7,7 +7,7 @@ import getTimesFromServer from '../services/traffic';
 import travelIds from '../services/travel-ids';
 import '../css/App.css';
 
-function mainApp() {
+export default function MainApp() {
     useEffect(() => {
         window.addEventListener('online', setOnlineStatus);
         window.addEventListener('offline', setOnlineStatus);
@@ -20,7 +20,7 @@ function mainApp() {
     const [isOnline, setOnline] = useState(navigator.onLine);
     const [isShitty, setIsShitty] = useState(null);
     const [filteredTimes, setFilteredTimes] = useState([]);
-    const [times, setTimes] = useState([]);
+    const [origTimes, setOrigTimes] = useState([]);
 
     const diff = key => {
         return key.CurrentTime - key.AverageTime;
@@ -51,7 +51,8 @@ function mainApp() {
 
         try {
             const serverTimes = await getTimesFromServer();
-            setTimes(serverTimes.filter(filterTimes));
+            setOrigTimes(serverTimes.filter(filterTimes));
+            setFilteredTimes(serverTimes.filter(filterTimes));
             isTrafficShitty(serverTimes.filter(filterTimes));
         } catch (err) {
             console.log('err', err);
@@ -63,9 +64,18 @@ function mainApp() {
     const filterTravelTimes = e => {
         e.preventDefault();
         const searchStr = e.target.value.toLowerCase();
-        const filteredTimes = times.filter(item =>
+
+        //string is empty, show the og list
+        if (searchStr === '') {
+            setFilteredTimes(origTimes);
+            isTrafficShitty(origTimes);
+            return;
+        }
+
+        const filteredTimes = origTimes.filter(item =>
             item.Description.toLowerCase().includes(searchStr)
         );
+
         setFilteredTimes(filteredTimes);
         isTrafficShitty(filteredTimes);
     };
@@ -75,9 +85,7 @@ function mainApp() {
             {isOnline ? null : <OfflineToast />}
             <TrafficHeader isShitty={isShitty} />
             <TrafficFilter filterTraffic={filterTravelTimes} />
-            <TrafficList times={filteredTimes || times} />
+            <TrafficList times={filteredTimes} />
         </div>
     );
 }
-
-export default mainApp;
