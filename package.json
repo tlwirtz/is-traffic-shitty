@@ -1,13 +1,14 @@
 {
-  "name": "my-vue-app",
+  "name": "is-traffic-shitty",
   "private": true,
-  "version": "0.0.0",
+  "version": "2.0.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "deploy-fb": "firebase use is-traffic-shitty && npm run build && firebase deploy"
   },
   "dependencies": {
     "classnames": "^2.5.1",
